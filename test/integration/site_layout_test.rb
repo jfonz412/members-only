@@ -7,4 +7,6 @@ class SiteLayoutTest < ActionDispatch::IntegrationTest
 		assert_select "a[href=?]", root_path, count: 2
 		assert_select "a[href=?]", login_path
 	end
+
+	# Test for links when logged in
 end
