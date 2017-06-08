@@ -4,5 +4,6 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
   test "should get new(signup)" do
     get signup_url
     assert_response :success
+    assert_select "title", "Sign-Up | Members Only!"
   end
 end
