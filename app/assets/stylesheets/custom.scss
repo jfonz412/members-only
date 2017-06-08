@@ -1,0 +1,5 @@
+/*these two lines will import the entire bootstrap library
+  when placed in this file (manually created) it allows all controllers to use bootstrap*/
+
+@import "bootstrap-sprockets";
+@import "bootstrap";
