@@ -33,4 +33,9 @@ class NewPostsTest < ActionDispatch::IntegrationTest
 		assert_template 'posts/show'
 	end
 
+	test "post index" do
+		get posts_path
+		assert_template 'posts/index'
+	end
+
 end
