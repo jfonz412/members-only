@@ -7,6 +7,7 @@ class SessionsController < ApplicationController
 
   	if @user && @user.authenticate(params[:session][:password])
   		log_in(@user)
+      # if remember me == 1, remember user
   		redirect_to @user
   	else
   		flash.now[:danger] = "Incorrect email or password"
