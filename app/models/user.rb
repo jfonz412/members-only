@@ -12,6 +12,12 @@ class User < ApplicationRecord
     BCrypt::Password.create(string, cost: cost)
   end
 
+  # takes remember token from the cookie and compares it with remember digest
+  def authenticated?(remember_token)
+    return false if remember_digest.nil?
+    BCrypt::Password.new(remember_digest).is_password?(remember_token)
+  end
+
   # returns a random string for my token
   def User.new_token
     SecureRandom.urlsafe_base64

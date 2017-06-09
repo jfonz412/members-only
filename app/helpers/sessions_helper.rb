@@ -14,23 +14,32 @@ module SessionsHelper
 	# it can be called in many different places like:
 	# <%= current_user.name %> in a view
 	# redirect_to current_user in a controller
+	# refactored at 9.9
 	def current_user
-		# assigns if nil, otherwise leaves it alone
-		@current_user ||= User.find_by(id: session[:user_id]) 
+		if session[:user_id] #sessions are destroyed after browser closes
+			@current_user ||= User.find_by(id: session[:user_id]) 
+		elsif cookies.signed[:user_id]
+			user = User.find_by(id: cookies.signed[:user_id])
+			if user && user.authenticated?(cookies[:remember_token])
+				log_in user
+				@current_user = user
+			end
+		end
 	end
 
 	def logged_in?
 		!current_user.nil?
 	end
 
-	def log_out
-		session.delete(:user_id)
-		@current_user = nil
-	end
-
 	def forget(user)
 		user.forget #model method
 		cookies.delete(:user_id)
 		cookies.delete(:remember_token)
+	end
+
+	def log_out
+		forget(current_user)
+		session.delete(:user_id)
+		@current_user = nil
 	end
 end
