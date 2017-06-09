@@ -12,7 +12,7 @@ class PostsController < ApplicationController
   		flash[:success] = "Post Created!"
   		redirect_to @post
   	else
-  		render 'new'
+  		render new_post_path
   	end
   end
 
