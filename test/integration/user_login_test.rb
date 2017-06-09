@@ -32,4 +32,18 @@ class UserLoginTest < ActionDispatch::IntegrationTest
     assert_not is_logged_in?
     assert_redirected_to root_path
 	end
+
+	test "login with remembering" do
+		log_in_as(@user, remember_me: '1')
+		assert_not_empty cookies['remember_token']
+		assert_equal cookies['remember_token'], assigns(:user).remember_token
+	end
+
+	test "login without remembering" do 
+		# log in to set the cookie
+		log_in_as(@user, remember_me: '1')
+		# log in again and verifiy that the cookie is deleted
+		log_in_as(@user, remember_me: '0')
+		assert_empty cookies['remember_token']
+	end
 end

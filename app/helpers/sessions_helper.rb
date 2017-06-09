@@ -3,6 +3,12 @@ module SessionsHelper
 		session[:user_id] = user.id # automatically encrypted
 	end
 
+	def remember(user)
+		user.remember # user model method
+		cookies.permanent.signed[:user_id] = user.id
+		cookies.permanent[:remember_token] = user.remember_token
+	end
+
 	# used to retrieve user on subsequent pages
 	# because sessions_helper.rb is included in the main app controller,
 	# it can be called in many different places like:
@@ -20,5 +26,11 @@ module SessionsHelper
 	def log_out
 		session.delete(:user_id)
 		@current_user = nil
+	end
+
+	def forget(user)
+		user.forget #model method
+		cookies.delete(:user_id)
+		cookies.delete(:remember_token)
 	end
 end
