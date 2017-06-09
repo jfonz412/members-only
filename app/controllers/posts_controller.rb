@@ -12,6 +12,7 @@ class PostsController < ApplicationController
   		flash[:success] = "Post Created!"
   		redirect_to @post
   	else
+  		flash.now[:warning] = "There were errors with your post."
   		render new_post_path
   	end
   end
