@@ -52,4 +52,15 @@ class UserLoginTest < ActionDispatch::IntegrationTest
 		log_in_as(@user, remember_me: '0')
 		assert_empty cookies['remember_token']
 	end
+
+	test "access private pages while logged in" do
+		log_in_as(@user, remember_me: '1')
+		get posts_path
+		assert :success
+		get post_path
+		assert :success
+		get users_path
+		assert :success
+		#profile page not tested
+	end
 end

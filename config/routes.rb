@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   root   'static_pages#home'
-  get	 '/newpost',   to: 'posts#new'
-  post   '/newpost',   to: 'posts#create'
+  get	 '/post',   to: 'posts#new'
+  post   '/post',   to: 'posts#create'
   get    '/posts',	   to: 'posts#index'
   get    '/signup',    to: 'users#new'
   post   '/signup',    to: 'users#create'

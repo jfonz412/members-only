@@ -2,7 +2,7 @@ require 'test_helper'
 
 class PostsControllerTest < ActionDispatch::IntegrationTest
   test "should get new" do
-    get newpost_url
+    get post_url
     assert_response :success
     assert_select "title", "New Post | Members Only!"
   end
