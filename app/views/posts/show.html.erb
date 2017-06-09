@@ -1,0 +1,14 @@
+<% provide(:title, "#{@post.title}") %>
+
+<h1><%= @post.title %><br></h1>
+<p><%= @post.body %></p>
+<br>
+<br>
+<p>
+Post created by:<br>
+<% if logged_in? %>
+	<%= @user.name %>
+<% else %>
+	ANNONOYMOUS
+<% end %>
+</p>
