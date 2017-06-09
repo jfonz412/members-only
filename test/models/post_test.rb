@@ -2,7 +2,8 @@ require 'test_helper'
 
 class PostTest < ActiveSupport::TestCase
 	def setup
-		@post = Post.new(title: "Test Post", body: "test"*10)
+		@user = users(:test_user)
+		@post = Post.new(title: "Test Post", body: "test"*10, user_id: @user.id)
 	end
 
 	test "should be valid" do
@@ -26,6 +27,11 @@ class PostTest < ActiveSupport::TestCase
 
 	test "body too long" do
 		@post.title = "x" * 600
+		assert_not @post.valid?
+	end
+
+	test "no author" do
+		@post.user_id = nil
 		assert_not @post.valid?
 	end
 end
